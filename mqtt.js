@@ -54,15 +54,11 @@ function onMessageArrived(message) {
 
 // Called when a picture arrives
 function onPictureArrived(message) {
-    console.log("onMessageArrived: " + message.payloadString);
-    document.getElementById("messages").innerHTML += '<span>Topic: ' + message.destinationName + '  | ' + message.payloadString + '</span><br/>';
-
-    f = open('receive.jpg', 'wb')
+    f = open('./test-received.jpg', 'wb')
     f.write(message.payload)
-    document.getElementById("messages").innerHTML += '<span>f.write(message.payload)</span><br/>';
     f.close()
     print ('image received')
-
+    document.getElementById("messages").innerHTML += '<span><img src ="test-received.jpg"></span><br/>';
     // Scroll to bottom of window
     updateScroll();
 }
