@@ -16,7 +16,7 @@ function startConnect() {
 
     // Set callback handlers
     client.onConnectionLost = onConnectionLost;
-    client.onMessageArrived = onMessageArrived;
+    client.onMessageArrived = onPictureArrived;
 
     // Connect the client, if successful, call onConnect function
     client.connect({ 
