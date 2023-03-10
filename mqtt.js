@@ -48,7 +48,23 @@ function onConnectionLost(responseObject) {
 function onMessageArrived(message) {
     console.log("onMessageArrived: " + message.payloadString);
     document.getElementById("messages").innerHTML += '<span>Topic: ' + message.destinationName + '  | ' + message.payloadString + '</span><br/>';
-    updateScroll(); // Scroll to bottom of window
+    // Scroll to bottom of window
+    updateScroll();
+}
+
+// Called when a picture arrives
+function onPictureArrived(message) {
+    console.log("onMessageArrived: " + message.payloadString);
+    document.getElementById("messages").innerHTML += '<span>Topic: ' + message.destinationName + '  | ' + message.payloadString + '</span><br/>';
+
+    f = open('receive.jpg', 'wb')
+    f.write(message.payload)
+    document.getElementById("messages").innerHTML += '<span>f.write(message.payload)</span><br/>';
+    f.close()
+    print ('image received')
+
+    // Scroll to bottom of window
+    updateScroll();
 }
 
 // Called when the disconnection button is pressed
