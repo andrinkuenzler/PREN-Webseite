@@ -12,13 +12,13 @@ function ImageRecoginition() {
             <div style={{marginBottom: 20}}>
               Aktuelle Aufnahme
             </div>
-            <img src={placeholder} alt="placeholder" width={600}  />
+            {/* <img src={placeholder} alt="placeholder" width={600}  /> */}
           </div>
           <div className='imagesWithText'>
             <div style={{marginBottom: 20}}>
               Letzter Treffer
             </div>
-            <img src={placeholder} alt="placeholder" width={600}/>
+            {/* <img src={placeholder} alt="placeholder" width={600}/> */}
           </div>
         </div>
       </div>
