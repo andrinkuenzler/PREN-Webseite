@@ -27,16 +27,15 @@ function App() {
       <h1>Temperatur: {messageReceived}</h1> */}
       <ResponsiveAppBar />
       <div className='wrapper'>
-        <section className='leftSide'>
+        <section className='counters'>
           <Container />
         </section>
-        <section className='rightSide'>
-          <section className='statistics'>
+       
+          {/* <section className='statistics'>
             <Statistics />
-          </section>
-          <section className='imageRecoginition'>
-            <ImageRecoginition />
-          </section>
+          </section> */}
+        <section className='imageRecoginition'>
+          <ImageRecoginition />
         </section>
       </div>
       

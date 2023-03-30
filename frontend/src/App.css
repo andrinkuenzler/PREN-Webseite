@@ -2,9 +2,9 @@ body{
   margin: 0px;
 }
 .wrapper{
-  margin: 8px;
+  /* margin: 8px;
   display: flex;
-  flex-direction: row;
+  flex-direction: row; */
 
 }
 .rightSide{

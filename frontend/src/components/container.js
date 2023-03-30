@@ -3,30 +3,47 @@ import { useEffect, useState } from "react";
 import placeholder from "../images/placeholder.jpeg"
 
 function Container() { 
-  const [countBlue, setCountBlue] = useState(0);
-  const [countRed, setCountRed] = useState(0);
-  const [countGreen, setCountGreen] = useState(0);
-  const [countYellow, setCountYellow] = useState(0);
+  const [countBlue, setCountBlue] = useState(5);
+  const [countRed, setCountRed] = useState(3);
+  const [countGreen, setCountGreen] = useState(1);
+  const [countYellow, setCountYellow] = useState(3);
   return (
-    <div className='Wrapper'>
-
-      <div className='skizze'>
-        <h3>skizze arbeitsplatz</h3>
-        <img src={placeholder} alt="placeholder" height={500} width={300} />
-      </div>
-      <div className='container'>
-        <div className='container_blue'>
-          {countBlue}
-        </div>
-        <div className='container_red'>
-          {countRed}
-        </div>
-        <div className='container_green'>
-          {countGreen}
-        </div>
-        <div className='container_yellow'>
-          {countYellow}
-        </div>
+    <div>
+       <h3>Counters</h3>
+        <div className='parentContainer'>
+        
+          <div className='titleWithContainer'>
+            <div className='titleContainer'>
+              Pet-Deckel
+            </div>
+            <div className='containers' id='blue'>
+              {countBlue}
+            </div>
+          </div>
+          <div className='titleWithContainer'>
+            <div className='titleContainer'>
+              Kronkorken
+            </div>
+            <div className='containers' id='red'>
+              {countRed}
+            </div>
+          </div>
+          <div className='titleWithContainer'>
+            <div className='titleContainer'>
+              Zigarettenstümmel
+            </div>
+            <div className='containers' id='green'>
+              {countGreen}
+            </div>
+          </div>
+          <div className='titleWithContainer'>
+            <div className='titleContainer'>
+              Wertgegenstände
+            </div>
+            <div className='containers' id='yellow'>
+              {countYellow}
+            </div>
+          </div>
       </div>
     </div>
   );
