@@ -1,10 +1,10 @@
-.wrapper{
 
-}
 .skizze{
 
 }
 .container{
-   
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
     border-style: solid;
 }

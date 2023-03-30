@@ -8,12 +8,8 @@ function Statistics() {
       <div className='skizze'>
         <h3>Geräte Statusinformationen</h3>
         <img src={placeholder} alt="placeholder" />
-      </div>
-      <div className='container'>
-        <div className='container_blue'></div>
-        <div className='container_red'></div>
-        <div className='container_green'></div>
-        <div className='container_yellow'></div>
+        <img src={placeholder} alt="placeholder" />
+
       </div>
     </div>
   );

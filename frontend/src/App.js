@@ -11,7 +11,7 @@ const socket = io.connect("http://localhost:3001");
 function App() {
   const [messageReceived, setMessageReceived] = useState("33");
   
-  socket.on("hello", (data) => {
+  socket.on("message", (data) => {
     console.log(data)
     setMessageReceived(data);
   });
@@ -22,9 +22,9 @@ function App() {
 
   return (
     <div className='App'>
-      <h1>Team 31</h1>
+      {/* <h1>Team 31</h1>
       <h1> Message:</h1>
-      <h1>Temperatur: {messageReceived}</h1>
+      <h1>Temperatur: {messageReceived}</h1> */}
       <ResponsiveAppBar />
       <div className='wrapper'>
         <section className='leftSide'>

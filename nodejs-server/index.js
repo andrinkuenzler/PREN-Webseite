@@ -4,12 +4,13 @@ const http = require("http");
 const { Server } = require("socket.io")
 const cors = require("cors");
 var mqtt = require('mqtt');
+const fs = require('fs');
 
 
 // connection to raspberry
-const topic = "testTopic";
-var client = mqtt.connect("mqtt://prenf23-banthama.el.eee.intern",{clientId:"mqttjs01"});
-
+const topic = "test/image/raw";
+var client = mqtt.connect("mqtt://prenf23-banthama.el.eee.intern",{clientId:"dhf9304582fdfsgg"});
+var counter = 0
 //connection
 console.log("connected flag  "+ client.connected);
 client.on("connect",function(){	
@@ -40,19 +41,53 @@ const io = new Server(server, {
     },
 });
 
-io.on("connection", (socket) => {
-    console.log(`User Connected: ${socket.id}`);
-    // send messages
-    client.on('message', (topic, payload) => {
-        console.log('Received Message:', topic, payload.toString())
-        socket.broadcast.emit('hello', payload.toString());
-    });
+client.on('message', (topic, payload) => {
+    // wird pro user geloggt
+    console.log('Received Message:', topic, payload.toString())
+    counter += 1
+    //console.log('Payload: ',payload)   
+    fs.writeFile('../frontend/src/images/placeholder.jpeg', payload, err => {
+        if (err) {
+          console.error(err);
+        }
+        console.log('success')
+      });
+    sendToClients(payload)
 });
+
+function sendToClients(payload) {
+    io.on("connection", (socket) => {
+        console.log(`User Connected: ${socket.id}`);
+        // send messages
+        socket.broadcast.emit('message', payload.toString());
+    });
+}
+
 
 server.listen(serverPort, () => {
     console.log("Server is running on Port: " + serverPort);
 });
 
+
+
+
+
+// io.on("connection", (socket) => {
+//     console.log(`User Connected: ${socket.id}`);
+//     // send messages
+//     client.on('message', (topic, payload) => {
+//         // wird pro user geloggt
+//         console.log('Received Message:', topic, payload.toString())
+//         counter += 1
+//         fs.writeFile('../frontend/src/images/placeholder.jpeg', payload, err => {
+//             if (err) {
+//               console.error(err);
+//             }
+//             console.log('success')
+//           });
+//         socket.broadcast.emit('message', payload.toString());
+//     });
+// });
 
 
 

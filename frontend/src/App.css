@@ -5,6 +5,10 @@ body{
   margin: 8px;
   display: flex;
   flex-direction: row;
+
+}
+.rightSide{
+  margin-left: 50px;
 }
 .App-logo {
   height: 40vmin;
