@@ -9,11 +9,12 @@ const fs = require('fs');
 // connection to raspberry
 var client = mqtt.connect("mqtt://prenf23-banthama.el.eee.intern",{clientId:"dhf9304582fdfsgg"});
 
-const topicHit = "test/image/processed/hit";
-const topicNoHit = "test/image/processed/noHit";
+const hitTopic = "test/image/processed/hit";
+const noHitTopic = "test/image/processed/noHit";
+const sensorTopic = "test/sensor"
 
-client.subscribe(topicHit)
-client.subscribe(topicNoHit)
+client.subscribe(hitTopic)
+client.subscribe(noHitTopic)
 
 var counter = 0
 
@@ -21,8 +22,8 @@ var counter = 0
 console.log("connected flag  "+ client.connected);
 
 client.on("message",function(topic, payload, packet){	
-    if (topic === topicHit) {
-        console.log(topicHit)
+    if (topic === hitTopic) {
+        console.log(hitTopic)
         fs.writeFile('../frontend/src/images/hit/hit.jpg', payload, err => {
             if (err) {
               console.error(err);
@@ -31,14 +32,18 @@ client.on("message",function(topic, payload, packet){
         });
     }
 
-    if (topic === topicNoHit) {
-        console.log(topicNoHit)
+    if (topic === noHitTopic) {
+        console.log(noHitTopic)
         fs.writeFile('../frontend/src/images/noHit/noHit.jpg', payload, err => {
             if (err) {
               console.error(err);
             }
             console.log('success no Hit')
         });
+    }
+
+    if (topic === sensorTopic) {
+        console.log(sensorTopic)
     }
 });
 
