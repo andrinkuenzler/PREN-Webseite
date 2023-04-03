@@ -6,18 +6,40 @@ const cors = require("cors");
 var mqtt = require('mqtt');
 const fs = require('fs');
 
-
 // connection to raspberry
-const topic = "test/image/raw";
 var client = mqtt.connect("mqtt://prenf23-banthama.el.eee.intern",{clientId:"dhf9304582fdfsgg"});
+
+const topicHit = "test/image/processed/hit";
+const topicNoHit = "test/image/processed/noHit";
+
+client.subscribe(topicHit)
+client.subscribe(topicNoHit)
+
 var counter = 0
+
 //connection
 console.log("connected flag  "+ client.connected);
-client.on("connect",function(){	
-    console.log("connected  "+client.connected);
-    client.subscribe([topic], () => {
-        console.log(`Subscribe to topic '${topic}'`)
-    })
+
+client.on("message",function(topic, payload, packet){	
+    if (topic === topicHit) {
+        console.log(topicHit)
+        fs.writeFile('../frontend/src/images/hit/hit.jpg', payload, err => {
+            if (err) {
+              console.error(err);
+            }
+            console.log('success Hit')
+        });
+    }
+
+    if (topic === topicNoHit) {
+        console.log(topicNoHit)
+        fs.writeFile('../frontend/src/images/noHit/noHit.jpg', payload, err => {
+            if (err) {
+              console.error(err);
+            }
+            console.log('success no Hit')
+        });
+    }
 });
 
 //error
@@ -41,19 +63,19 @@ const io = new Server(server, {
     },
 });
 
-client.on('message', (topic, payload) => {
-    // wird pro user geloggt
-    console.log('Received Message:', topic, payload.toString())
-    counter += 1
-    //console.log('Payload: ',payload)   
-    fs.writeFile('../frontend/src/images/placeholder.jpeg', payload, err => {
-        if (err) {
-          console.error(err);
-        }
-        console.log('success')
-      });
-    sendToClients(payload)
-});
+// client.on('message', (topic, payload) => {
+//     // wird pro user geloggt
+//     console.log('Received Message:', topic, payload.toString())
+//     counter += 1
+//     //console.log('Payload: ',payload)   
+//     fs.writeFile('../frontend/src/images/placeholder.jpeg', payload, err => {
+//         if (err) {
+//           console.error(err);
+//         }
+//         console.log('success')
+//       });
+//     sendToClients(payload)
+// });
 
 function sendToClients(payload) {
     io.on("connection", (socket) => {

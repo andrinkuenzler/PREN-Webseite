@@ -1,6 +1,8 @@
 import './image_recognition.css';
 import { useEffect, useState } from "react";
-import placeholder from "../images/placeholder.jpeg"
+import hit from "../images/hit/hit.jpg"
+import noHit from "../images/noHit/noHit.jpg"
+
 
 function ImageRecoginition() { 
   return (
@@ -12,13 +14,13 @@ function ImageRecoginition() {
             <div style={{marginBottom: 20}}>
               Aktuelle Aufnahme
             </div>
-            {/* <img src={placeholder} alt="placeholder" width={600}  /> */}
+            <img src={noHit} alt="placeholder" width={600}  />
           </div>
           <div className='imagesWithText'>
             <div style={{marginBottom: 20}}>
               Letzter Treffer
             </div>
-            {/* <img src={placeholder} alt="placeholder" width={600}/> */}
+            <img src={hit} alt="placeholder" width={600}/>
           </div>
         </div>
       </div>

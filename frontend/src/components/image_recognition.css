@@ -4,6 +4,7 @@
 .image_reg{
     margin-top: 180px;
     font-size: 2.5vw;
+    margin-bottom: 50px;
 }
 .images{
     display: flex;
