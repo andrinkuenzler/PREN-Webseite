@@ -11,41 +11,25 @@ var client = mqtt.connect("mqtt://prenf23-banthama.el.eee.intern",{clientId:"dhf
 
 const hitTopic = "test/image/processed/hit";
 const noHitTopic = "test/image/processed/noHit";
-const sensorTopic = "test/sensor"
+const sensorTopicPet = "test/sensor/pet"
+const sensorTopicKorken = "test/sensor/korken"
+const sensorTopicStümmel = "test/sensor/Stümmel"
+const sensorTopicWertgegenstände = "test/sensor/Wertgegenstände"
 
 client.subscribe(hitTopic)
 client.subscribe(noHitTopic)
+client.subscribe(sensorTopicKorken)
+client.subscribe(sensorTopicPet)
+client.subscribe(sensorTopicStümmel)
+client.subscribe(sensorTopicWertgegenstände)
 
-var counter = 0
+var counterPet = 0
+var counterKorken = 0
+var counterStuemmel = 0
+var counterWert = 0
 
-//connection
+//connection mqtt
 console.log("connected flag  "+ client.connected);
-
-client.on("message",function(topic, payload, packet){	
-    if (topic === hitTopic) {
-        console.log(hitTopic)
-        fs.writeFile('../frontend/src/images/hit/hit.jpg', payload, err => {
-            if (err) {
-              console.error(err);
-            }
-            console.log('success Hit')
-        });
-    }
-
-    if (topic === noHitTopic) {
-        console.log(noHitTopic)
-        fs.writeFile('../frontend/src/images/noHit/noHit.jpg', payload, err => {
-            if (err) {
-              console.error(err);
-            }
-            console.log('success no Hit')
-        });
-    }
-
-    if (topic === sensorTopic) {
-        console.log(sensorTopic)
-    }
-});
 
 //error
 client.on("error",function(error){
@@ -68,54 +52,57 @@ const io = new Server(server, {
     },
 });
 
-// client.on('message', (topic, payload) => {
-//     // wird pro user geloggt
-//     console.log('Received Message:', topic, payload.toString())
-//     counter += 1
-//     //console.log('Payload: ',payload)   
-//     fs.writeFile('../frontend/src/images/placeholder.jpeg', payload, err => {
-//         if (err) {
-//           console.error(err);
-//         }
-//         console.log('success')
-//       });
-//     sendToClients(payload)
-// });
-
-function sendToClients(payload) {
-    io.on("connection", (socket) => {
-        console.log(`User Connected: ${socket.id}`);
-        // send messages
-        socket.broadcast.emit('message', payload.toString());
-    });
-}
-
-
 server.listen(serverPort, () => {
     console.log("Server is running on Port: " + serverPort);
 });
 
+// nach verbinden auf neusten stand bringen
+io.on("connection", (socket) => {
+    console.log(`User Connected: ${socket.id}`);
+    io.sockets.emit("pet", counterPet.toString());
+    io.sockets.emit("korken", counterKorken.toString());
+    io.sockets.emit("stuemmel", counterStuemmel.toString());
+    io.sockets.emit("wert", counterWert.toString());
+});
 
+// counter / bilder updaten
+client.on("message",function(topic, payload, packet){	
+    if (topic === hitTopic) {
+        fs.writeFile('../frontend/src/images/hit/hit.jpg', payload, err => {
+            if (err) {
+                console.error(err);
+            }
+        });
+    }
 
+    if (topic === noHitTopic) {
+        console.log(noHitTopic)
+        fs.writeFile('../frontend/src/images/noHit/noHit.jpg', payload, err => {
+            if (err) {
+                console.error(err);
+            }
+        });
+    }
 
+    if (topic === sensorTopicPet) {
+        counterPet++
+        io.sockets.emit("pet", counterPet.toString());
+    }
 
-// io.on("connection", (socket) => {
-//     console.log(`User Connected: ${socket.id}`);
-//     // send messages
-//     client.on('message', (topic, payload) => {
-//         // wird pro user geloggt
-//         console.log('Received Message:', topic, payload.toString())
-//         counter += 1
-//         fs.writeFile('../frontend/src/images/placeholder.jpeg', payload, err => {
-//             if (err) {
-//               console.error(err);
-//             }
-//             console.log('success')
-//           });
-//         socket.broadcast.emit('message', payload.toString());
-//     });
-// });
+    if (topic === sensorTopicKorken) {
+        counterKorken++
+        io.sockets.emit("korken", counterKorken.toString());
+    }
 
+    if (topic === sensorTopicStümmel) {
+        counterStuemmel++
+        io.sockets.emit("stuemmel", counterStuemmel.toString());
+    }
 
+    if (topic === sensorTopicWertgegenstände) {
+        counterWert++
+        io.sockets.emit("wert", counterWert.toString());
+    }
+});
 
 

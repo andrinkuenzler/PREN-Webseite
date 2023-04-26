@@ -2,13 +2,13 @@
     
 }
 .image_reg{
-    margin-top: 180px;
     font-size: 2.5vw;
     margin-bottom: 50px;
 }
 .images{
     display: flex;
     justify-content: space-around;
+    flex-wrap: wrap;
 }
 h3{
     display: flex;
@@ -20,3 +20,18 @@ h3{
     align-items: center;
     
 }
+
+@media screen and (max-width: 992px) {
+    .images {
+      margin-left: 20px;
+      margin-right: 20px;
+    }
+  }
+
+  @media screen and (max-width: 600px) {
+    
+    .image_reg{
+        font-size: larger;
+    }
+    
+  }
