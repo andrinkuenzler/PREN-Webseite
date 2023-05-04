@@ -7,7 +7,7 @@ var mqtt = require('mqtt');
 const fs = require('fs');
 
 // connection to raspberry
-var client = mqtt.connect("mqtt://prenf23-banthama.el.eee.intern",{clientId:"dhfjkh9304582fdfsgg"});
+var client = mqtt.connect("mqtt://prenf23-banthama.el.eee.intern",{clientId:"dhfjkh930asdf4582fdfsgg"});
 
 const hitTopic = "test/image/processed/hit";
 const noHitTopic = "test/image/processed/noHit";
@@ -47,7 +47,7 @@ const server = http.createServer(app);
 
 const io = new Server(server, {
     cors: {
-        origin: "http://localhost:3000",
+        origin: "http://prenf23-banthama.el.eee.intern:3000/",
         methods: ["GET", "POST"],
     },
 });
