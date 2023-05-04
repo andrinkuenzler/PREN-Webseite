@@ -7,13 +7,13 @@ var mqtt = require('mqtt');
 const fs = require('fs');
 
 // connection to raspberry
-var client = mqtt.connect("mqtt://prenf23-banthama.el.eee.intern",{clientId:"dhf9304582fdfsgg"});
+var client = mqtt.connect("mqtt://prenf23-banthama.el.eee.intern",{clientId:"dhfjkh9304582fdfsgg"});
 
 const hitTopic = "test/image/processed/hit";
 const noHitTopic = "test/image/processed/noHit";
-const sensorTopicPet = "test/sensor/pet"
-const sensorTopicKorken = "test/sensor/korken"
-const sensorTopicStümmel = "test/sensor/Stümmel"
+const sensorTopicPet = "test/sensor/petcover"
+const sensorTopicKorken = "test/sensor/bottlecap"
+const sensorTopicStümmel = "test/sensor/fagend"
 const sensorTopicWertgegenstände = "test/sensor/Wertgegenstände"
 
 client.subscribe(hitTopic)
@@ -85,6 +85,7 @@ client.on("message",function(topic, payload, packet){
     }
 
     if (topic === sensorTopicPet) {
+        console.log(topic)
         counterPet++
         io.sockets.emit("pet", counterPet.toString());
     }
@@ -95,6 +96,7 @@ client.on("message",function(topic, payload, packet){
     }
 
     if (topic === sensorTopicStümmel) {
+        console.log(topic)
         counterStuemmel++
         io.sockets.emit("stuemmel", counterStuemmel.toString());
     }
