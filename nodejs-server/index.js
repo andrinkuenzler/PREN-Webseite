@@ -15,6 +15,8 @@ const sensorTopicPet = "test/sensor/petcover"
 const sensorTopicKorken = "test/sensor/bottlecap"
 const sensorTopicStümmel = "test/sensor/fagend"
 const sensorTopicWertgegenstände = "test/sensor/Wertgegenstände"
+const sensorTopicStart = "test/sensor/start"
+const sensorTopicFinish = "test/sensor/finish"
 
 client.subscribe(hitTopic)
 client.subscribe(noHitTopic)
@@ -22,11 +24,15 @@ client.subscribe(sensorTopicKorken)
 client.subscribe(sensorTopicPet)
 client.subscribe(sensorTopicStümmel)
 client.subscribe(sensorTopicWertgegenstände)
+client.subscribe(sensorTopicStart)
+client.subscribe(sensorTopicFinish)
 
 var counterPet = 0
 var counterKorken = 0
 var counterStuemmel = 0
 var counterWert = 0
+
+var runTimeFlag = false;
 
 //connection mqtt
 console.log("connected flag  "+ client.connected);
@@ -67,45 +73,58 @@ io.on("connection", (socket) => {
 });
 
 // counter / bilder updaten
-client.on("message",function(topic, payload, packet){	
-    if (topic === hitTopic) {
-        fs.writeFile('../frontend/src/images/hit/hit.jpg', payload, err => {
-            if (err) {
-                console.error(err);
-            }
-        });
+client.on("message",function(topic, payload, packet){
+    if (topic === sensorTopicStart) {
+        counterPet = 0
+        counterKorken = 0
+        counterStuemmel = 0
+        counterWert = 0
+        runTimeFlag = true
     }
-
-    if (topic === noHitTopic) {
-        console.log(noHitTopic)
-        fs.writeFile('../frontend/src/images/noHit/noHit.jpg', payload, err => {
-            if (err) {
-                console.error(err);
-            }
-        });
+    if (topic === sensorTopicFinish) {
+        runTimeFlag = false
     }
-
-    if (topic === sensorTopicPet) {
-        console.log(topic)
-        counterPet++
-        io.sockets.emit("pet", counterPet.toString());
+    while(runTimeFlag){
+        if (topic === hitTopic) {
+            fs.writeFile('../frontend/src/images/hit/hit.jpg', payload, err => {
+                if (err) {
+                    console.error(err);
+                }
+            });
+        }
+    
+        if (topic === noHitTopic) {
+            console.log(noHitTopic)
+            fs.writeFile('../frontend/src/images/noHit/noHit.jpg', payload, err => {
+                if (err) {
+                    console.error(err);
+                }
+            });
+        }
+    
+        if (topic === sensorTopicPet) {
+            console.log(topic)
+            counterPet++
+            io.sockets.emit("pet", counterPet.toString());
+        }
+    
+        if (topic === sensorTopicKorken) {
+            counterKorken++
+            io.sockets.emit("korken", counterKorken.toString());
+        }
+    
+        if (topic === sensorTopicStümmel) {
+            console.log(topic)
+            counterStuemmel++
+            io.sockets.emit("stuemmel", counterStuemmel.toString());
+        }
+    
+        if (topic === sensorTopicWertgegenstände) {
+            counterWert++
+            io.sockets.emit("wert", counterWert.toString());
+        }
     }
-
-    if (topic === sensorTopicKorken) {
-        counterKorken++
-        io.sockets.emit("korken", counterKorken.toString());
-    }
-
-    if (topic === sensorTopicStümmel) {
-        console.log(topic)
-        counterStuemmel++
-        io.sockets.emit("stuemmel", counterStuemmel.toString());
-    }
-
-    if (topic === sensorTopicWertgegenstände) {
-        counterWert++
-        io.sockets.emit("wert", counterWert.toString());
-    }
+    
 });
 
 
