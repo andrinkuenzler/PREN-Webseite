@@ -2,7 +2,7 @@ import './container.css';
 import { useEffect, useState } from "react";
 import io from "socket.io-client";
 
-const socket = io.connect("http://localhost:3001");
+const socket = io.connect("http://prenf23-banthama.el.eee.intern:3001");
 
 function Container() { 
   const [countBlue, setCountBlue] = useState("0");
