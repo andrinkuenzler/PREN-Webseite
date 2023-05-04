@@ -47,8 +47,9 @@ const server = http.createServer(app);
 
 const io = new Server(server, {
     cors: {
-        origin: "http://prenf23-banthama.el.eee.intern:3000/",
+        origin: '*',
         methods: ["GET", "POST"],
+        
     },
 });
 
