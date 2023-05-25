@@ -15,8 +15,7 @@ const sensorTopicPet = "test/sensor/petcover"
 const sensorTopicKorken = "test/sensor/bottlecap"
 const sensorTopicStümmel = "test/sensor/fagend"
 const sensorTopicWertgegenstände = "test/sensor/Wertgegenstände"
-const sensorTopicStart = "test/sensor/start"
-const sensorTopicFinish = "test/sensor/finish"
+const sensorTopicStartStop = "test/aktor/startstop"
 
 client.subscribe(hitTopic)
 client.subscribe(noHitTopic)
@@ -24,8 +23,7 @@ client.subscribe(sensorTopicKorken)
 client.subscribe(sensorTopicPet)
 client.subscribe(sensorTopicStümmel)
 client.subscribe(sensorTopicWertgegenstände)
-client.subscribe(sensorTopicStart)
-client.subscribe(sensorTopicFinish)
+client.subscribe(sensorTopicStartStop)
 
 var counterPet = 0
 var counterKorken = 0
@@ -75,17 +73,20 @@ io.on("connection", (socket) => {
 // counter / bilder updaten
 client.on("message",function(topic, payload, packet){
 
-    if (topic === sensorTopicStart) {
+    if (topic === sensorTopicStartStop) {
         console.log(payload)
-        counterPet = 0
-        counterKorken = 0
-        counterStuemmel = 0
-        counterWert = 0
-        runTimeFlag = true
+        if(!runTimeFlag){
+            counterPet = 0
+            counterKorken = 0
+            counterStuemmel = 0
+            counterWert = 0
+            runTimeFlag = true
+        }else {
+            runTimeFlag = false
+        }
+    
     }
-    if (topic === sensorTopicFinish) {
-        runTimeFlag = false
-    }
+
     if(runTimeFlag){
         if (topic === hitTopic) {
             fs.writeFile('../frontend/src/images/hit/hit.jpg', payload, err => {
