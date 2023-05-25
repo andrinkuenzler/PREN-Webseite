@@ -72,17 +72,22 @@ io.on("connection", (socket) => {
 
 // counter / bilder updaten
 client.on("message",function(topic, payload, packet){
-
+    //console.log(topic)
     if (topic === sensorTopicStartStop) {
-        console.log(payload)
         if(!runTimeFlag){
             counterPet = 0
             counterKorken = 0
             counterStuemmel = 0
             counterWert = 0
+            io.sockets.emit("wert", counterWert.toString());
+            io.sockets.emit("pet", counterPet.toString());
+            io.sockets.emit("korken", counterKorken.toString());
+            io.sockets.emit("stuemmel", counterStuemmel.toString());
             runTimeFlag = true
+            console.log("updating....")
         }else {
             runTimeFlag = false
+            console.log("not updating....")
         }
     
     }
@@ -90,6 +95,8 @@ client.on("message",function(topic, payload, packet){
     if(runTimeFlag){
         if (topic === hitTopic) {
             counterWert++
+            console.log(counterWert)
+            io.sockets.emit("wert", counterWert.toString());
             fs.writeFile('../frontend/src/images/hit/hit.jpg', payload, err => {
                 if (err) {
                     console.error(err);
