@@ -7,7 +7,7 @@ var mqtt = require('mqtt');
 const fs = require('fs');
 
 // connection to raspberry
-var client = mqtt.connect("mqtt://prenf23-banthama.el.eee.intern",{clientId:"dhfjkh930asdf4582fdfsgg"});
+var client = mqtt.connect("mqtt://prenf23-banthama.el.eee.intern",{clientId:"123324235423452345"});
 
 const hitTopic = "test/image/processed/hit";
 const noHitTopic = "test/image/processed/noHit";
@@ -74,7 +74,9 @@ io.on("connection", (socket) => {
 
 // counter / bilder updaten
 client.on("message",function(topic, payload, packet){
+
     if (topic === sensorTopicStart) {
+        console.log(payload)
         counterPet = 0
         counterKorken = 0
         counterStuemmel = 0
@@ -84,7 +86,7 @@ client.on("message",function(topic, payload, packet){
     if (topic === sensorTopicFinish) {
         runTimeFlag = false
     }
-    while(runTimeFlag){
+    if(runTimeFlag){
         if (topic === hitTopic) {
             fs.writeFile('../frontend/src/images/hit/hit.jpg', payload, err => {
                 if (err) {
