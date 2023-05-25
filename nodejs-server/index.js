@@ -89,6 +89,7 @@ client.on("message",function(topic, payload, packet){
 
     if(runTimeFlag){
         if (topic === hitTopic) {
+            counterWert++
             fs.writeFile('../frontend/src/images/hit/hit.jpg', payload, err => {
                 if (err) {
                     console.error(err);
