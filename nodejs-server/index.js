@@ -69,6 +69,10 @@ io.on("connection", (socket) => {
     io.sockets.emit("stuemmel", counterStuemmel.toString());
     io.sockets.emit("wert", counterWert.toString());
 });
+var isRunning = false
+var mm = 0
+var ss =  0
+var ms =  0
 
 // counter / bilder updaten
 client.on("message",function(topic, payload, packet){
@@ -85,16 +89,36 @@ client.on("message",function(topic, payload, packet){
             io.sockets.emit("stuemmel", counterStuemmel.toString());
             io.sockets.emit("startStop", true.toString());
             runTimeFlag = true
-            timer(true)
             console.log("updating....")
-        }else {
-            runTimeFlag = false
-            timer(false)
-            io.sockets.emit("startStop", false.toString());
-            console.log("not updating....")
-        }
-    
-    }
+            //timer
+            var timerID = 0;
+            if (isRunning) {
+                // Running => Stop
+                clearInterval(timerID);
+            } else {
+                // Stop => Running
+                timerID = setInterval(() => {
+                    ms++;
+                    if (ms >= 100) {
+                        ss++;
+                        console.log("Timer" + ss)
+                        io.sockets.emit("sek", ss.toString());
+                        ms = 0;
+                    }
+                }, 10);
+            }
+            isRunning = !isRunning
+     
+            }else {
+                runTimeFlag = false
+                ms = 0
+                ss = 0
+                mm = 0
+                io.sockets.emit("startStop", false.toString());
+                console.log("not updating....")
+            }
+            
+            }
 
     if(runTimeFlag){
         if (topic === hitTopic) {
