@@ -111,6 +111,7 @@ client.on("message",function(topic, payload, packet){
      
             }else {
                 clearInterval(timerID);
+                isRunning = !isRunning
                 runTimeFlag = false
                 ms = 0
                 ss = 0
