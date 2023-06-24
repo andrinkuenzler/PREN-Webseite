@@ -7,7 +7,7 @@ var mqtt = require('mqtt');
 const fs = require('fs');
 
 // connection to raspberry
-var client = mqtt.connect("mqtt://prenf23-banthama.el.eee.intern",{clientId:"123324235423452345"});
+var client = mqtt.connect("mqtt://prenf23-banthama.el.eee.intern",{clientId:"123324asdsd2354sfgdhg23452345"});
 
 const hitTopic = "test/image/processed/hit";
 const noHitTopic = "test/image/processed/noHit";
@@ -162,7 +162,7 @@ function timer(startStop) {
             ms++;
             if (ms >= 100) {
                 ss++;
-                console.log(ss)
+                console.log("Timer" + ss)
                 io.sockets.emit("sek", ss.toString());
                 ms = 0;
             }
