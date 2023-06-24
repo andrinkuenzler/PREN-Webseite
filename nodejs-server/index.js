@@ -35,7 +35,7 @@ var runTimeFlag = false;
 //connection mqtt
 console.log("connected flag  "+ client.connected);
 
-error
+
 client.on("error",function(error){
     console.log("Can't connect" + error);
     process.exit(1)
