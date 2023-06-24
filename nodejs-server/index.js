@@ -73,7 +73,7 @@ var isRunning = false
 var mm = 0
 var ss =  0
 var ms =  0
-
+var timerID = 0;
 // counter / bilder updaten
 client.on("message",function(topic, payload, packet){
     //console.log(topic)
@@ -91,7 +91,7 @@ client.on("message",function(topic, payload, packet){
             runTimeFlag = true
             console.log("updating....")
             //timer
-            var timerID = 0;
+            
             if (isRunning) {
                 // Running => Stop
                 clearInterval(timerID);
@@ -110,6 +110,7 @@ client.on("message",function(topic, payload, packet){
             isRunning = !isRunning
      
             }else {
+                clearInterval(timerID);
                 runTimeFlag = false
                 ms = 0
                 ss = 0
