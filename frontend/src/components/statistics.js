@@ -3,7 +3,7 @@ import { CountUp } from 'use-count-up'
 import io from "socket.io-client";
 import { useEffect, useState } from "react";
 
-const socket = io.connect("http://localhost:3001");
+const socket = io.connect("http://prenf23-banthama.el.eee.intern:3001/");
 
 function Statistics() {
   const [isStarted, setIsStarted] = useState(false);
