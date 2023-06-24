@@ -180,5 +180,3 @@ function timer(startStop) {
 function format(num) {
     return (num + '').length === 1 ? '0' + num : num + '';
 }  
-
-timer(true)
