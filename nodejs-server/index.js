@@ -35,7 +35,7 @@ var runTimeFlag = false;
 //connection mqtt
 console.log("connected flag  "+ client.connected);
 
-//error
+error
 client.on("error",function(error){
     console.log("Can't connect" + error);
     process.exit(1)
@@ -83,10 +83,14 @@ client.on("message",function(topic, payload, packet){
             io.sockets.emit("pet", counterPet.toString());
             io.sockets.emit("korken", counterKorken.toString());
             io.sockets.emit("stuemmel", counterStuemmel.toString());
+            io.sockets.emit("startStop", true.toString());
             runTimeFlag = true
+            timer(true)
             console.log("updating....")
         }else {
             runTimeFlag = false
+            timer(false)
+            io.sockets.emit("startStop", false.toString());
             console.log("not updating....")
         }
     
@@ -139,3 +143,42 @@ client.on("message",function(topic, payload, packet){
 });
 
 
+function timer(startStop) {
+    var isRunning = false
+    var mm = 0
+    var ss =  0
+    var ms =  0
+    
+    var timerID = 0;
+    
+    if(startStop){
+        if (isRunning) {
+        // Running => Stop
+        clearInterval(timerID);
+        } else {
+        // Stop => Running
+    
+        timerID = setInterval(() => {
+            ms++;
+            if (ms >= 100) {
+                ss++;
+                console.log(ss)
+                io.sockets.emit("sek", ss.toString());
+                ms = 0;
+            }
+        }, 10);
+        }
+        isRunning = !isRunning
+    }else {
+        ms = 0
+        ss = 0
+        mm = 0
+    }
+
+    // 1 => 01
+}
+function format(num) {
+    return (num + '').length === 1 ? '0' + num : num + '';
+}  
+
+timer(true)

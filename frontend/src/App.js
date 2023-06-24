@@ -13,6 +13,9 @@ function App() {
     <div className='App'>
       <ResponsiveAppBar />
       <div className='wrapper'>
+        <section className='stats'>
+          <Statistics />
+        </section>
         <section className='counters'>
           <Container />
         </section>
