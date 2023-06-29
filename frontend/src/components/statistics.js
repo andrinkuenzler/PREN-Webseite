@@ -25,6 +25,7 @@ function Statistics() {
     setSec(timeInSeconds % 60)
     setMin(Math.floor(timeInSeconds / 60))
     setSek(data)
+    setIsStarted(true)
   });
   
   return (
@@ -39,7 +40,8 @@ function Statistics() {
           <div className='energy'>
             <div style={{marginBottom: 10}}>Verbrauch:</div>
             <div>
-              <CountUp isCounting end={5000} duration={140} /> kWh
+              {isStarted ? <CountUp isCounting end={5000} duration={140}> kWh </CountUp> : <div> 0 kWh </div>}
+              
             </div>
           </div>
         </div>

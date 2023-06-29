@@ -10,20 +10,20 @@ import Skizze from './components/skizze';
 
 function App() {
   return (
-    <div className='App'>
+    <div className='App' >
       <ResponsiveAppBar />
       <div className='wrapper'>
-        <section className='stats'>
+        <section className='stats' id='stats'>
           <Statistics />
         </section>
-        <section className='counters'>
+        <section className='counters' id='counters'>
           <Container />
         </section>
-        <section className='imageRecoginition'>
+        <section className='imageRecoginition' id='imageRecoginition'>
           <ImageRecoginition />
         </section>
-        <section>
-          <Skizze />
+        <section id='skizze'>
+          <Skizze  />
         </section>
       </div>
       

@@ -13,7 +13,25 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 
-const pages = ['Status','Zähler', 'Bilderkennung', 'Skizze'];
+const pages = [
+  // {
+  //  "name" : "Status",
+  //  "link" : "stats"
+  // },
+  // {
+  //   "name" : "Zähler",
+  //   "link" : "counters"
+  // },
+  // {
+  //   "name" : "Bilderkennung",
+  //   "link" : "imageRecoginition"
+  // },
+  // {
+  //   "name" : "Skizze",
+  //   "link" : "skizze"
+  //  }
+];
+
 const settings = [];
 
 function ResponsiveAppBar() {
@@ -40,13 +58,16 @@ function ResponsiveAppBar() {
       <Container maxWidth="100%">
         <Toolbar disableGutters>
           <Typography
-            variant="h6"
+            variant="h5"
             noWrap
             component="a"
             href="/"
             sx={{
               mr: 2,
+              width: "100%",
               display: { xs: 'none', md: 'flex' },
+              alignItems: "center",
+              justifyContent: "center",
               fontFamily: 'monospace',
               fontWeight: 700,
               letterSpacing: '.3rem',
@@ -54,8 +75,9 @@ function ResponsiveAppBar() {
               textDecoration: 'none',
             }}
           >
-            Team 31
+            Team 31 SATOSHI
           </Typography>
+         
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
@@ -88,12 +110,11 @@ function ResponsiveAppBar() {
             >
               {pages.map((page) => (
                 <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
+                  <Typography textAlign="center" href={page.link}>{page.name}</Typography>
                 </MenuItem>
               ))}
             </Menu>
           </Box>
-          <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
           <Typography
             variant="h5"
             noWrap
@@ -110,16 +131,17 @@ function ResponsiveAppBar() {
               textDecoration: 'none',
             }}
           >
-            LOGO
+            Team 31 SATOSHI
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
               <Button
-                key={page}
+                key={page.name}
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: 'white', display: 'block' }}
+                href={page.link}
               >
-                {page}
+                {page.name}
               </Button>
             ))}
           </Box>
