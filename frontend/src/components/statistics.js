@@ -40,7 +40,7 @@ function Statistics() {
           <div className='energy'>
             <div style={{marginBottom: 10}}>Verbrauch:</div>
             <div>
-              {isStarted ? <CountUp isCounting end={5000} duration={140}> kWh </CountUp> : <div> 0 kWh </div>}
+              {isStarted ? <CountUp isCounting end={12000} duration={120}> Ws </CountUp> : <div> 0 Ws </div>}
               
             </div>
           </div>

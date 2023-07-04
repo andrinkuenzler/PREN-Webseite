@@ -36,7 +36,7 @@ function Container() {
             <div className='titleContainer'>
               Pet-Deckel
             </div>
-            <div className='containers' id='blue'>
+            <div className='containers' id='yellow'>
               {countBlue}
             </div>
           </div>
@@ -44,7 +44,7 @@ function Container() {
             <div className='titleContainer'>
               Zigarettenstümmel
             </div>
-            <div className='containers' id='green'>
+            <div className='containers' id='blue'>
               {countGreen}
             </div>
           </div>
@@ -61,7 +61,7 @@ function Container() {
             <div className='titleContainer'>
               Wertgegenstände
             </div>
-            <div className='containers' id='yellow'>
+            <div className='containers' id='green'>
               {countYellow}
             </div>
           </div>
