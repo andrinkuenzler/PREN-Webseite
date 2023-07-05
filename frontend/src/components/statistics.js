@@ -10,11 +10,13 @@ function Statistics() {
   const [sek, setSek] = useState("0");
   const [sec, setSec] = useState(0);
   const [min, setMin] = useState(0);
+  const [defaultValue, setDefaultValue] = useState(12000)
 
 
   socket.on("startStop", (data) => {
     if(data === "false"){
       setIsStarted(false)
+      setDefaultValue(12000)
     }else{
       setIsStarted(true)
     }
@@ -40,7 +42,7 @@ function Statistics() {
           <div className='energy'>
             <div style={{marginBottom: 10}}>Verbrauch:</div>
             <div>
-              {isStarted ? <CountUp isCounting end={12000} duration={120}> Ws </CountUp> : <div> 0 Ws </div>}
+              {isStarted ? <div> <CountUp isCounting end={12000} duration={120}> </CountUp> Ws </div> : <div> {defaultValue} Ws </div>}
               
             </div>
           </div>
